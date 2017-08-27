@@ -3,8 +3,8 @@
 /// License: http://www.opensource.org/licenses/BSD-2-Clause               ///
 //--------------------------------------------------------------------------//
 
-#ifndef __RTM_MTUNERINJECT_PCH_H__
-#define __RTM_MTUNERINJECT_PCH_H__
+#ifndef RTM_MTUNERINJECT_PCH_H
+#define RTM_MTUNERINJECT_PCH_H
 
 #include <rbase/inc/cmdline.h>
 #include <rbase/inc/console.h>
@@ -13,4 +13,4 @@
 
 #include <rdebug/inc/rdebug.h>
 
-#endif // __RTM_MTUNERINJECT_PCH_H__
+#endif // RTM_MTUNERINJECT_PCH_H
