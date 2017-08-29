@@ -8,10 +8,6 @@
 #if RTM_PLATFORM_WINDOWS
 #include <Shlobj.h>
 
-#if RTM_COMPILER_MSVC
-#pragma comment(lib, "Shell32.lib")
-#endif // RTM_COMPILER_MSVC
-
 bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 {
     OSVERSIONINFOEX osVersionInfo;
