@@ -6,12 +6,6 @@
 #include <MTunerInject_pch.h>
 
 #if RTM_PLATFORM_WINDOWS
-
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#define _WIN32_WINNT 0x0601
-#endif // _WIN32_WINNT
-
 #include <Shlobj.h>
 
 #if RTM_COMPILER_MSVC
