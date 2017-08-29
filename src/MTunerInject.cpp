@@ -6,9 +6,17 @@
 #include <MTunerInject_pch.h>
 
 #if RTM_PLATFORM_WINDOWS
-#define WIN32_LEAN_AND_MEAN
+
+#ifdef _WIN32_WINNT
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0601
+#endif // _WIN32_WINNT
+
 #include <Shlobj.h>
+
+#if RTM_COMPILER_MSVC
 #pragma comment(lib, "Shell32.lib")
+#endif // RTM_COMPILER_MSVC
 
 bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 {
