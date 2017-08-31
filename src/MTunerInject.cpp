@@ -17,13 +17,6 @@ bool windowsVersionGreaterOrEqual(DWORD majorVersion)
     ULONGLONG maskCondition = ::VerSetConditionMask(0, VER_MAJORVERSION, VER_GREATER_EQUAL);
     return ::VerifyVersionInfo(&osVersionInfo, VER_MAJORVERSION, maskCondition) ? true : false;
 }
-
-#define RTM_DEFINE_KNOWN_FOLDER(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) const GUID name = { l, w1, w2, { b1, b2,  b3,  b4,  b5,  b6,  b7,  b8 } }
-
-RTM_DEFINE_KNOWN_FOLDER(FOLDERID_RoamingAppData,      0x3EB685DB, 0x65F9, 0x4CF6, 0xA0, 0x3A, 0xE3, 0xEF, 0x65, 0x72, 0x9F, 0x3D);
-
-typedef void (WINAPI * fnCoTaskMemFree)(LPVOID pv);
-
 #endif
 
 static const char* g_banner = "Copyright (c) 2017 Milos Tosic. All rights reserved.\n";
@@ -48,10 +41,6 @@ void getStoragePath(char _path[512])
 		{
 			strcpy(_path, rtm::WideToMulti(folderPath));
 			pathRetrieved = true;
-
-			HMODULE ole32 = LoadLibrary("Ole32");
-			fnCoTaskMemFree cotaskmemfree = (fnCoTaskMemFree)::GetProcAddress(ole32, "CoTaskMemFree");
-			cotaskmemfree(static_cast<void*>(folderPath));
 		}
 	}
 	else
