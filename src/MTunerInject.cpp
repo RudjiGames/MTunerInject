@@ -7,6 +7,7 @@
 
 #if RTM_PLATFORM_WINDOWS
 #include <Shlobj.h>
+#include <shellapi.h>
 
 bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 {
@@ -21,11 +22,19 @@ bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 
 static const char* g_banner = "Copyright (c) 2017 Milos Tosic. All rights reserved.\n";
 
-void err(const char* _msg = 0)
+void err(const char* _message = 0)
 {
-	rtm::Console::error(_msg ? _msg : "This program is internal to MTuner. Do not call it directly!");
+	rtm::Console::error(_message ? _message : "This program is internal to MTuner. Do not call it directly!");
 	exit(EXIT_FAILURE);
-} 
+}
+
+const char* findMTunerInjectExe(const char* _string)
+{
+	uint32_t len = (uint32_t)strlen(_string);
+	const char*		exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT_DEBUG");	// handle running from debugger
+	if (!exePos)	exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT ");
+	return exePos;
+}
 
 void getStoragePath(char _path[512])
 {
@@ -69,19 +78,35 @@ void getStoragePath(char _path[512])
 #endif
 }
 
-int main(int argc, const char**)
+int main(int argc, const char** /*argv*/)
 {
-	RTM_UNUSED(argc);
-
-	rtm::Console::info("%s\n",g_banner);
-
-    char captureDir[512];
-    getStoragePath(captureDir);
-    strcat(captureDir,"\\MTuner");
-
 #if !RTM_PLATFORM_WINDOWS
 	err("Only Windows supported currently!");
 #else
+
+	rtm::Console::info("%s\n",g_banner);
+
+	// prepare DLL path
+	wchar_t dllPathWide[512];
+	GetModuleFileNameW(NULL, dllPathWide, 512); 
+	rtm::WideToMulti dllPathMulti(dllPathWide);
+
+	rtm::pathRemoveRelative(dllPathMulti);
+
+	const char* exePos = findMTunerInjectExe(dllPathMulti);
+	if (!exePos)
+		err("Could not locate executable!");
+
+#if RTM_64BIT
+	strcpy(const_cast<char*>(exePos), "MTunerDLL64.dll");
+#else
+	strcpy(const_cast<char*>(exePos), "MTunerDLL32.dll");
+#endif
+
+	// prepare storage path
+    char captureDir[512];
+    getStoragePath(captureDir);
+    strcat(captureDir,"\\MTuner");
 
     CreateDirectoryW(rtm::MultiToWide(captureDir), NULL);
 
@@ -96,44 +121,15 @@ int main(int argc, const char**)
 
 	end[-1] = L'\0';
 
-	wchar_t dllPath[1024];
-
-#if RTM_PLATFORM_WINDOWS
-	GetModuleFileNameW(GetModuleHandle(0), dllPath, 1024);
-	rtm::WideToMulti dllPathM(dllPath);
-	rtm::pathRemoveRelative(dllPathM);
-	wcscpy(dllPath, rtm::MultiToWide(dllPathM));
-#else
-	wcscpy(dllPath,cmd);
-#endif
-
-	size_t len = wcslen(dllPath);
-	while ((dllPath[len] != L'/') && (dllPath[len] != L'\\')) --len;
-
-#if RTM_64BIT
-	wcscpy(&dllPath[len+1],L"MTunerDLL64.dll");
-#else
-	wcscpy(&dllPath[len+1],L"MTunerDLL32.dll");
-#endif
-
-	if (dllPath[0] == L'\"')
-		wcscat(dllPath, L"\"");
-
-	// EXE
+	// executable
 	cmd = end+4;
 	end = wcsstr(cmd,L"#23#");
 	*end = L'\0';
 
-	wchar_t exePath[1024];
-	wcscpy(exePath,cmd);
+	wchar_t executable[1024];
+	wcscpy(executable, cmd);
 
-	FILE* checkExists = _wfopen(exePath,L"rb");
-	if (!checkExists)
-		err();
-	else
-		fclose(checkExists);
-	
-	// CMD line
+	// CMD line arguments
 	cmd = end+5;
 	if (wcsncmp(cmd,L"#23#",4) != 0)
 		err();
@@ -159,16 +155,24 @@ int main(int argc, const char**)
 	size_t sz = wcslen(workingDir);
 	if (sz == 0)
 	{
-		wcscpy(workingDir,exePath);
-		len = wcslen(workingDir);
+		wcscpy(workingDir, executable);
+		size_t len = wcslen(workingDir);
 		while ((workingDir[len] != L'/') && (workingDir[len] != L'\\')) --len;
 		workingDir[len+1] = L'\0';
 	}
 
-	SetCurrentDirectoryW(workingDir);
+	if (!SetCurrentDirectoryW(workingDir))
+		err("Could not change working directory!");
 
-	if (!rdebug::processInjectDLL(	rtm::WideToMulti(exePath),
-									rtm::WideToMulti(dllPath),
+	FILE* checkExists = _wfopen(executable, L"rb");
+	if (!checkExists)
+		err("Executable doesn't exist!");
+	else
+		fclose(checkExists);
+
+
+	if (!rdebug::processInjectDLL(	rtm::WideToMulti(executable),
+									dllPathMulti,
 									rtm::WideToMulti(cmdLine),
 									rtm::WideToMulti(workingDir)))
 	{
