@@ -32,7 +32,7 @@ const char* findMTunerInjectExe(const char* _string)
 {
 	uint32_t len = (uint32_t)strlen(_string);
 	const char*		exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT_DEBUG");	// handle running from debugger
-	if (!exePos)	exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT ");
+	if (!exePos)	exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT");
 	return exePos;
 }
 
