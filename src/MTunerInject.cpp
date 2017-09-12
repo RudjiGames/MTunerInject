@@ -25,7 +25,7 @@ static const char* g_banner = "Copyright (c) 2017 Milos Tosic. All rights reserv
 void err(const char* _message = 0)
 {
 	rtm::Console::error(_message ? _message : "This program is internal to MTuner. Do not call it directly!");
-	exit(EXIT_FAILURE);
+	exit(0);
 }
 
 const char* findMTunerInjectExe(const char* _string)
@@ -170,16 +170,17 @@ int main(int argc, const char** /*argv*/)
 	else
 		fclose(checkExists);
 
-
+	uint32_t pid;
 	if (!rdebug::processInjectDLL(	rtm::WideToMulti(executable),
 									dllPathMulti,
 									rtm::WideToMulti(cmdLine),
-									rtm::WideToMulti(workingDir)))
+									rtm::WideToMulti(workingDir),
+									&pid))
 	{
 		err();
 	}
 
 #endif // RTM_PLATFORM_WINDOWS
 
-	return 0;
+	return pid;
 }
