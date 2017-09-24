@@ -82,6 +82,7 @@ int main(int argc, const char** /*argv*/)
 {
 #if !RTM_PLATFORM_WINDOWS
 	err("Only Windows supported currently!");
+	return 0;
 #else
 
 	rtm::Console::info("%s\n",g_banner);
@@ -180,7 +181,6 @@ int main(int argc, const char** /*argv*/)
 		err();
 	}
 
-#endif // RTM_PLATFORM_WINDOWS
-
 	return pid;
+#endif // RTM_PLATFORM_WINDOWS
 }
