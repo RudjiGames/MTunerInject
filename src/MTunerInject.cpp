@@ -92,7 +92,7 @@ int main(int argc, const char** /*argv*/)
 	GetModuleFileNameW(NULL, dllPathWide, 512); 
 	rtm::WideToMulti dllPathMulti(dllPathWide);
 
-	rtm::pathRemoveRelative(dllPathMulti);
+	rtm::pathMakeAbsolute(dllPathMulti);
 
 	const char* exePos = findMTunerInjectExe(dllPathMulti);
 	if (!exePos)
