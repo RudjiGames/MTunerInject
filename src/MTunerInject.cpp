@@ -1,5 +1,5 @@
 //--------------------------------------------------------------------------//
-/// Copyright (c) 2018 Milos Tosic. All Rights Reserved.                   ///
+/// Copyright (c) 2019 Milos Tosic. All Rights Reserved.                   ///
 /// License: http://www.opensource.org/licenses/BSD-2-Clause               ///
 //--------------------------------------------------------------------------//
 
@@ -20,7 +20,7 @@ bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 }
 #endif
 
-static const char* g_banner = "Copyright (c) 2018 Milos Tosic. All rights reserved.\n";
+static const char* g_banner = "Copyright (c) 2019 Milos Tosic. All rights reserved.\n";
 
 void err(const char* _message = 0)
 {
