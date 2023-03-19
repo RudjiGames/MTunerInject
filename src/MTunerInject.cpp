@@ -1,5 +1,6 @@
 //--------------------------------------------------------------------------//
-/// Copyright (c) 2019 Milos Tosic. All Rights Reserved.                   ///
+//--------------------------------------------------------------------------//
+/// Copyright (c) 2023 Milos Tosic. All Rights Reserved.                   ///
 /// License: http://www.opensource.org/licenses/BSD-2-Clause               ///
 //--------------------------------------------------------------------------//
 
@@ -20,7 +21,7 @@ bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 }
 #endif
 
-static const char* g_banner = "Copyright (c) 2019 Milos Tosic. All rights reserved.\n";
+static const char* g_banner = "Copyright (c) 2023 Milos Tosic. All rights reserved.\n";
 
 void err(const char* _message = 0)
 {
@@ -171,7 +172,7 @@ int main(int argc, const char** /*argv*/)
 	else
 		fclose(checkExists);
 
-	uint32_t pid;
+	uint32_t pid = 0;
 	if (!rdebug::processInjectDLL(	rtm::WideToMulti(executable),
 									dllPathMulti,
 									rtm::WideToMulti(cmdLine),
@@ -180,7 +181,7 @@ int main(int argc, const char** /*argv*/)
 	{
 		err();
 	}
-
+	
 	return pid;
 #endif // RTM_PLATFORM_WINDOWS
 }
