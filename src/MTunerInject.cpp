@@ -21,8 +21,6 @@ bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 }
 #endif
 
-static const char* g_banner = "Copyright (c) 2023 Milos Tosic. All rights reserved.\n";
-
 void err(const char* _message = 0)
 {
 	rtm::Console::error(_message ? _message : "This program is internal to MTuner. Do not call it directly!");
@@ -85,8 +83,6 @@ int main(int argc, const char** /*argv*/)
 	err("Only Windows supported currently!");
 	return 0;
 #else
-
-	rtm::Console::info("%s\n",g_banner);
 
 	// prepare DLL path
 	wchar_t dllPathWide[512];
