@@ -1,7 +1,6 @@
 MTunerInject
 ======
 
-[![Build Status](https://travis-ci.org/milostosic/MTunerInject.svg?branch=master)](https://travis-ci.org/milostosic/MTunerInject)
 [![Build status](https://ci.appveyor.com/api/projects/status/qjnkdymyl59yhhoy?svg=true)](https://ci.appveyor.com/project/milostosic/MTunerInject)
 [![License](https://img.shields.io/badge/license-BSD--2%20clause-blue.svg)](https://github.com/milostosic/MTunerInject/blob/master/LICENSE)
 
