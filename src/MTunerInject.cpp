@@ -80,6 +80,7 @@ void getStoragePath(char _path[512])
 int main(int argc, const char** /*argv*/)
 {
 #if !RTM_PLATFORM_WINDOWS
+	(void)argc;
 	err("Only Windows supported currently!");
 	return 0;
 #else
