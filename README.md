@@ -1,25 +1,24 @@
 <img src="https://rudji.com/images/lib/mtunerinject.png"/>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qjnkdymyl59yhhoy?svg=true)](https://ci.appveyor.com/project/milostosic/MTunerInject)
-[![License](https://img.shields.io/badge/license-BSD--2%20clause-blue.svg)](https://github.com/milostosic/MTunerInject/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-BSD--2%20clause-blue.svg)](https://github.com/RudjiGames/MTunerInject/blob/master/LICENSE)
 
-MTunerInject is a command line tool used by MTuner to start a process with an injected DLL.
+**MTunerInject** is a command line tool used by [**MTuner**](https://github.com/RudjiGames/MTuner) to start a process with an injected DLL.
 
 Source Code
 ======
 
 You can get the latest source code by cloning it from github:
 
-      git clone https://github.com/milostosic/MTunerInject.git 
+      git clone https://github.com/RudjiGames/MTunerInject.git 
 
 Dependencies
 ======
 
 Dependencies can be obtained by cloning the following repositories:
 
-	git clone https://github.com/milostosic/build.git
-	git clone https://github.com/milostosic/rbase.git
-	git clone https://github.com/milostosic/rdebug.git
+	git clone https://github.com/RudjiGames/build.git
+	git clone https://github.com/RudjiGames/rbase.git
+	git clone https://github.com/RudjiGames/rdebug.git
 
 DIA (Debug Interface Access) SDK - **Windows only**
 
