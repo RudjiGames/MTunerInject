@@ -4,25 +4,9 @@
 
 **MTunerInject** is a command line tool used by [**MTuner**](https://github.com/RudjiGames/MTuner) to start a process with an injected DLL.
 
-Source Code
-======
+---
 
-You can get the latest source code by cloning it from github:
-
-      git clone https://github.com/RudjiGames/MTunerInject.git 
-
-Dependencies
-======
-
-Dependencies can be obtained by cloning the following repositories:
-
-	git clone https://github.com/RudjiGames/build.git
-	git clone https://github.com/RudjiGames/rbase.git
-	git clone https://github.com/RudjiGames/rdebug.git
-
-DIA (Debug Interface Access) SDK - **Windows only**
-
-	git clone https://github.com/milostosic/DIA.git
+This repository is part of the [**MTuner**](https://github.com/RudjiGames/MTuner) project and is **not** meant to be used/built in a stand alone way.
 
 License (BSD 2-clause)
 ======
