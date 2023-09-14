@@ -1,47 +1,24 @@
-MTunerInject
-======
+<img src="https://rudji.com/images/lib/mtunerinject.png"/>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/qjnkdymyl59yhhoy?svg=true)](https://ci.appveyor.com/project/milostosic/MTunerInject)
-[![License](https://img.shields.io/badge/license-BSD--2%20clause-blue.svg)](https://github.com/milostosic/MTunerInject/blob/master/LICENSE)
+[![Build status](https://ci.appveyor.com/api/projects/status/7gf8hn8jtqc8g8oc?svg=true)](https://ci.appveyor.com/project/milostosic/mtunerinject)
+[![License](https://img.shields.io/badge/license-BSD--2%20clause-blue.svg)](https://github.com/RudjiGames/MTunerInject/blob/master/LICENSE)
 
-MTunerInject is a command line tool used by MTuner to start a process with an injected DLL.
+**MTunerInject** is a command line tool used by [**MTuner**](https://github.com/RudjiGames/MTuner) to start a process with an injected DLL.
 
-Source Code
-======
+---
 
-You can get the latest source code by cloning it from github:
-
-      git clone https://github.com/milostosic/MTunerInject.git 
-
-Dependencies
-======
-
-Dependencies can be obtained by cloning the following repositories:
-
-	git clone https://github.com/milostosic/build.git
-	git clone https://github.com/milostosic/rbase.git
-	git clone https://github.com/milostosic/rdebug.git
-
-DIA (Debug Interface Access) SDK - **Windows only**
-
-	git clone https://github.com/milostosic/DIA.git
-
-Author
-======
-
-The author of **MTunerInject** is Milos Tosic  
-[ <img src="https://github.com/milostosic/build/raw/gh-pages/images/twitter.png">](https://twitter.com/milostosic)[ <img src="https://github.com/milostosic/build/raw/gh-pages/images/mail.png">](mailto:milostosic77@gmail.com)  
+This repository is part of the [**MTuner**](https://github.com/RudjiGames/MTuner) project and is **not** meant to be used/built in a stand alone way.
 
 License (BSD 2-clause)
 ======
 
 <a href="http://opensource.org/licenses/BSD-2-Clause" target="_blank">
-<img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
+<img align="right" src="https://opensource.org/wp-content/uploads/2022/10/osi-badge-dark.svg" width="100" height="137">
 </a>
 
-	Copyright (c) 2017 Milos Tosic. All rights reserved.
+	Copyright 2023 Milos Tosic. All rights reserved.
 	
-	https://github.com/milostosic/MTunerInject
+	https://github.com/RudjiGames/MTunerInject
 	
 	Redistribution and use in source and binary forms, with or without
 	modification, are permitted provided that the following conditions are met:
