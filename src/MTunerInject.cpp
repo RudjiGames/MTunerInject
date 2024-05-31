@@ -28,7 +28,7 @@ void err(const char* _message = 0)
 
 const char* findMTunerInjectExe(const char* _string)
 {
-	uint32_t len = (uint32_t)strlen(_string);
+	uint32_t len = (uint32_t)rtm::strLen(_string);
 	const char*		exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT_DEBUG");	// handle running from debugger
 	if (!exePos)	exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT");
 	return exePos;
@@ -66,9 +66,9 @@ void getStoragePath(char _path[512])
 		// fall back on env variable
 		wchar_t* path = _wgetenv(L"APPDATA");
 		if (path)
-			strcpy(_path, rtm::WideToMulti(path));
+			rtm::strlCpy(_path, 512, rtm::WideToMulti(path));
 		else
-			strcpy(_path, "");  // nothing worked ;(
+			rtm::strlCpy(_path, 512, "");  // nothing worked ;(
 	}
 
 #else
