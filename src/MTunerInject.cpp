@@ -72,7 +72,7 @@ void getStoragePath(char _path[512])
 	}
 
 #else
-	strcpy(_path, "");
+	rtm::strlCpy(_path, 512, "");
 #endif
 }
 
