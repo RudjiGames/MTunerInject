@@ -6,11 +6,9 @@
 #ifndef RTM_MTUNERINJECT_PCH_H
 #define RTM_MTUNERINJECT_PCH_H
 
-#include <rbase/inc/cmdline.h>
 #include <rbase/inc/console.h>
 #include <rbase/inc/path.h>
 #include <rbase/inc/winchar.h>
-#include <rbase/inc/stringfn.h>
 
 #include <rdebug/inc/rdebug.h>
 

@@ -7,7 +7,6 @@
 
 #if RTM_PLATFORM_WINDOWS
 #include <Shlobj.h>
-#include <shellapi.h>
 
 bool windowsVersionGreaterOrEqual(DWORD majorVersion)
 {
