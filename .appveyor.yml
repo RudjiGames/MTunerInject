@@ -68,7 +68,7 @@ for:
       - build\tools\bin\windows\genie.exe --file=MTunerInject\genie\genie.lua vs2022
 
     build: 
-      project: MTunerInject\.build\windows\vs2022\MTunerInject\projects\MTunerInject.sln
+      project: .build\windows\vs2022\MTunerInject\projects\MTunerInject.sln
 
 # ======================================
 # Linux
