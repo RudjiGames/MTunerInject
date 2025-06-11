@@ -28,8 +28,8 @@ void err(const char* _message = 0)
 const char* findMTunerInjectExe(const char* _string)
 {
 	uint32_t len = (uint32_t)rtm::strLen(_string);
-	const char*		exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT_DEBUG");	// handle running from debugger
-	if (!exePos)	exePos = rtm::strStr<rtm::toUpper>(_string, len, "MTUNERINJECT");
+	const char*		exePos = rtm::strStr<rtm::charToUpper>(_string, len, "MTUNERINJECT_DEBUG");	// handle running from debugger
+	if (!exePos)	exePos = rtm::strStr<rtm::charToUpper>(_string, len, "MTUNERINJECT");
 	return exePos;
 }
 
