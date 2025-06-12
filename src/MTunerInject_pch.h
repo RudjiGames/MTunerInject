@@ -8,7 +8,7 @@
 
 #include <rbase/inc/console.h>
 #include <rbase/inc/path.h>
-#include <rbase/inc/winchar.h>
+#include <rbase/inc/widechar.h>
 
 #include <rdebug/inc/rdebug.h>
 
