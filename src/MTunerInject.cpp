@@ -45,9 +45,11 @@ void getStoragePath(char _path[512])
 		HRESULT hr = SHGetKnownFolderPath( FOLDERID_RoamingAppData, 0, NULL, &folderPath);
 		if (hr == S_OK)
 		{
-			strcpy(_path, rtm::WideToMulti(folderPath));
+			rtm::WideToMulti folderPathMulti(folderPath);
+			rtm::strlCpy(_path, 512, folderPathMulti);
 			pathRetrieved = true;
-		}
+			CoTaskMemFree(folderPath);
+		}		
 	}
 	else
 	{
@@ -55,7 +57,8 @@ void getStoragePath(char _path[512])
 		HRESULT hr = SHGetFolderPathW(0, CSIDL_APPDATA, 0, 0, path);
 		if (hr == S_OK)
 		{
-			strcpy(_path, rtm::WideToMulti(path));
+			rtm::WideToMulti pathMulti(path);
+			rtm::strlCpy(_path, 512, pathMulti);
 			pathRetrieved = true;
 		}
 	}
@@ -65,7 +68,10 @@ void getStoragePath(char _path[512])
 		// fall back on env variable
 		wchar_t* path = _wgetenv(L"APPDATA");
 		if (path)
-			rtm::strlCpy(_path, 512, rtm::WideToMulti(path));
+		{
+			rtm::WideToMulti pathMulti(path);
+			rtm::strlCpy(_path, 512, pathMulti);
+		}
 		else
 			rtm::strlCpy(_path, 512, "");  // nothing worked ;(
 	}
@@ -94,16 +100,19 @@ int main(int argc, const char** /*argv*/)
 	if (!exePos)
 		err("Could not locate executable!");
 
+	uint32_t usedBytes = (uint32_t)(exePos - dllPathMulti.m_ptr);
+	uint32_t remainingBuffer = dllPathMulti.size() + 1 - usedBytes;
+
 #if RTM_64BIT
-	strcpy(const_cast<char*>(exePos), "MTunerDLL64.dll");
+	rtm::strlCpy(const_cast<char*>(exePos), remainingBuffer, "MTunerDLL64.dll");
 #else
-	strcpy(const_cast<char*>(exePos), "MTunerDLL32.dll");
+	rtm::strlCpy(const_cast<char*>(exePos), remainingBuffer, "MTunerDLL32.dll");
 #endif
 
 	// prepare storage path
     char captureDir[512];
     getStoragePath(captureDir);
-    strcat(captureDir,"\\MTuner");
+    rtm::strlCat(captureDir, 512, "\\MTuner");
 
     CreateDirectoryW(rtm::MultiToWide(captureDir), NULL);
 
@@ -121,6 +130,8 @@ int main(int argc, const char** /*argv*/)
 	// executable
 	cmd = end+4;
 	end = wcsstr(cmd,L"#23#");
+	if (!end)
+		err();
 	*end = L'\0';
 
 	wchar_t executable[1024];
@@ -145,6 +156,8 @@ int main(int argc, const char** /*argv*/)
 		err();
 	cmd += 4;
 	end = wcsstr(cmd,L"#23#");
+	if (!end)
+		err();
 	*end = L'\0';
 
 	wchar_t workingDir[1024];
@@ -154,8 +167,12 @@ int main(int argc, const char** /*argv*/)
 	{
 		wcscpy(workingDir, executable);
 		size_t len = wcslen(workingDir);
-		while ((workingDir[len] != L'/') && (workingDir[len] != L'\\')) --len;
-		workingDir[len+1] = L'\0';
+		if (len > 0)
+		{
+			--len;
+			while (len > 0 && (workingDir[len] != L'/') && (workingDir[len] != L'\\')) --len;
+			workingDir[len+1] = L'\0';
+		}
 	}
 
 	if (!SetCurrentDirectoryW(workingDir))
