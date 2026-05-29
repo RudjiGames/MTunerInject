@@ -125,7 +125,8 @@ int main(int argc, const char** /*argv*/)
 	if (!end)
 		err();
 
-	end[-1] = L'\0';
+	if (end > cmd)
+		end[-1] = L'\0';
 
 	// executable
 	cmd = end+4;
@@ -135,6 +136,8 @@ int main(int argc, const char** /*argv*/)
 	*end = L'\0';
 
 	wchar_t executable[1024];
+	if (wcslen(cmd) >= (sizeof(executable)/sizeof(executable[0])))
+		err("Executable path too long!");
 	wcscpy(executable, cmd);
 
 	// CMD line arguments
@@ -148,6 +151,8 @@ int main(int argc, const char** /*argv*/)
 	*end = L'\0';
 
 	wchar_t cmdLine[1024];
+	if (wcslen(cmd) >= (sizeof(cmdLine)/sizeof(cmdLine[0])))
+		err("Command line too long!");
 	wcscpy(cmdLine,cmd);
 
 	// Working dir
@@ -161,6 +166,8 @@ int main(int argc, const char** /*argv*/)
 	*end = L'\0';
 
 	wchar_t workingDir[1024];
+	if (wcslen(cmd) >= (sizeof(workingDir)/sizeof(workingDir[0])))
+		err("Working directory too long!");
 	wcscpy(workingDir,cmd);
 	size_t sz = wcslen(workingDir);
 	if (sz == 0)
